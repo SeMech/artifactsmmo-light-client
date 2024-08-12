@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Build webpack and deploy to pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -23,6 +23,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      URL: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -52,7 +54,12 @@ jobs:
       uses: actions/configure-pages@v5
     - name: Install dependencies
       run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-    - name: Build with Next.js
+    - name: Write envs
+      run: |
+        touch .env
+        echo FRONT_BASE_URL=${{ env.URL }} >> .env
+        cat .env
+    - name: Build
       run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
