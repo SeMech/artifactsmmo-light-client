@@ -1,0 +1,1 @@
+export const POLING_TIME = 1000
