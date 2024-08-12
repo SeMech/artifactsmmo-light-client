@@ -54,7 +54,8 @@ jobs:
       run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
     - name: Write envs
       env:
-        URL: $GITHUB_REPOSITORY_OWNER.github.io/${{ github.repository }}
+        # URL: $GITHUB_REPOSITORY_OWNER.github.io/${{ github.repository }}
+        URL: https://${{ github.context.repo.owner }}.github.io/${{ github.context.repo.repo }}
       run: |
         echo env
         touch .env
