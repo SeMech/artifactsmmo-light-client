@@ -55,9 +55,8 @@ jobs:
     - name: Write envs
       env:
         # URL: $GITHUB_REPOSITORY_OWNER.github.io/${{ github.repository }}
-        URL: https://${{ github.context.repo.owner }}.github.io/${{ github.context.repo.repo }}
+        URL: $(gh api "repos/$GITHUB_REPOSITORY/pages/deployments" --jq '.page_url')
       run: |
-        echo env
         touch .env
         echo FRONT_BASE_URL=${{ env.URL }} >> .env
         cat .env
