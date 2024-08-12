@@ -23,8 +23,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      URL: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -55,6 +53,8 @@ jobs:
     - name: Install dependencies
       run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
     - name: Write envs
+      env:
+        URL: ${{ steps.deployment.outputs.page_url }}
       run: |
         touch .env
         echo FRONT_BASE_URL=${{ env.URL }} >> .env
