@@ -54,8 +54,9 @@ jobs:
       run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
     - name: Write envs
       env:
-        URL: ${{ steps.deployment.outputs.page_url }}
+        URL: $GITHUB_REPOSITORY_OWNER.github.io/${{ github.repository }}
       run: |
+        echo env
         touch .env
         echo FRONT_BASE_URL=${{ env.URL }} >> .env
         cat .env
