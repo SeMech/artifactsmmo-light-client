@@ -1,4 +1,5 @@
 import { CRAFT_SKILLS } from "@/common/consts"
+import { ArtifactsItem } from "@/components/ui/artifacts-item"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Modal } from "@/components/ui/modal"
@@ -43,14 +44,7 @@ export function CharacterCard({ character, close }: Props) {
           <Label className="w-full mb-2 text-base">Inventory</Label>
           <div className="grid grid-cols-4 gap-2">
             {filteredInventory.length > 0 ? filteredInventory.map(item => (
-              <div key={item.code + item.slot} className="border-2 rounded-lg text-center relative flex justify-center items-center h-[60px]">
-                {item.code && (
-                  <>
-                    <img className="w-2/3 h-2/3 object-contain" src={`https://artifactsmmo.com/images/items/${item.code}.png`} />
-                    <span className="text-xs absolute bottom-1 left-1">x{item.quantity}</span>
-                  </>
-                )}
-              </div>
+              <ArtifactsItem key={item.code + item.slot} item={item} />
             )) : (
               <div className="text-xs">Пусто</div>
             )}
