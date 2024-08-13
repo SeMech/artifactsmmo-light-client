@@ -3,7 +3,7 @@ import { findMap } from "@/helpers/find-map";
 import { renderCooldown } from "@/helpers/render-cooldown";
 import { useData } from "@/hooks/use-data";
 import { CharacterSchema, MapSchema } from "@/types/schemas";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { CharacterCard } from "./character-card";
 import { getMapTableContent } from "@/helpers/get-map-table-content";
 
@@ -39,7 +39,9 @@ const columns: Column<{ character: CharacterSchema, map: (MapSchema | undefined)
 export function CharactersTable() {
   const { characters, maps } = useData();
 
-  const [currentCharacter, setCurrentCharacter] = useState<CharacterSchema|null>(null)
+  const [currentCharacterName, setCurrentCharacterName] = useState<string|null>(null)
+
+  const currentCharacter = useMemo(() => characters.find(({ name }) => name === currentCharacterName) || null, [characters, currentCharacterName])
 
   return (
     <div>
@@ -54,7 +56,7 @@ export function CharactersTable() {
         </TableHeader>
         <TableBody>
           {characters.map(character => (
-            <TableRow key={character.name} onClick={() => setCurrentCharacter(character)} className="cursor-pointer">
+            <TableRow key={character.name} onClick={() => setCurrentCharacterName(character.name)} className="cursor-pointer">
               {columns.map(column => (
                 <TableCell key={`${character.name}_${column.header}`} className="w-[max-content]">
                   {column.content || column.contentFn?.({ character, map: findMap(maps, character) }) || '-'}
@@ -67,7 +69,7 @@ export function CharactersTable() {
 
       {currentCharacter && <CharacterCard
         character={currentCharacter}
-        close={() => setCurrentCharacter(null)}
+        close={() => setCurrentCharacterName(null)}
       />}
     </div>
   )
