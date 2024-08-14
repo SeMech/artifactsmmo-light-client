@@ -1,5 +1,5 @@
 import { CRAFT_SKILLS } from "@/common/consts"
-import { ArtifactsItem } from "@/components/ui/artifacts-item"
+import { ArtifactsItem } from "@/components/artifacts-item"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Modal } from "@/components/ui/modal"
