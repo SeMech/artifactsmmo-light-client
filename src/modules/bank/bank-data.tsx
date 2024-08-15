@@ -1,4 +1,4 @@
-import { ArtifactsItem } from "@/components/artifacts-item"
+import { ArtifactsItem } from "@/modules/item"
 import { useData } from "@/hooks/use-data"
 
 export function BankData() {

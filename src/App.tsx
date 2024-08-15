@@ -25,7 +25,7 @@ function App() {
           </div>
         </PageHeader>
       </header>
-      <main className="container">
+      <main className="container pb-8">
         {isAuth ? <Main /> : <Auth />}
       </main>
     </div>
