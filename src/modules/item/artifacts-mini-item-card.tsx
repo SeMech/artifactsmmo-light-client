@@ -1,5 +1,5 @@
 import { GESchema, ItemSchema } from "@/types/schemas"
-import { Table, TableBody, TableCell, TableRow } from "./ui/table"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { FC, useEffect, useState } from "react"
 import geApi from "@/api/ge-api"
 import { useData } from "@/hooks/use-data"

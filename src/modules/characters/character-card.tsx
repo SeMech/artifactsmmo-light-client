@@ -1,9 +1,9 @@
-import { CRAFT_SKILLS } from "@/common/consts"
-import { ArtifactsItem } from "@/components/artifacts-item"
+import { CRAFT_SKILLS, SKILLS_ICONS } from "@/common/consts"
+import { ArtifactsItem } from "@/modules/item"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Modal } from "@/components/ui/modal"
-import { Table, TableCell, TableRow } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { CharacterSchema } from "@/types/schemas"
 import { X } from "lucide-react"
 
@@ -46,27 +46,32 @@ export function CharacterCard({ character, close }: Props) {
             {filteredInventory.length > 0 ? filteredInventory.map(item => (
               <ArtifactsItem key={item.code + item.slot} item={item} />
             )) : (
-              <div className="text-xs">Пусто</div>
+              <div className="text-xs">Not found</div>
             )}
           </div>
         </div>
         <div className="flex flex-col">
           <Label className="w-full mb-2 text-base">Skills</Label>
           <Table>
-            {CRAFT_SKILLS.map(skill => {
-              const level = character[`${skill}_level` as keyof CharacterSchema] as string
-              const xp = character[`${skill}_xp` as keyof CharacterSchema] as string
-              const max_xp = character[`${skill}_max_xp` as keyof CharacterSchema] as string
+            <TableBody>
+              {CRAFT_SKILLS.map(skill => {
+                const level = character[`${skill}_level` as keyof CharacterSchema] as string
+                const xp = character[`${skill}_xp` as keyof CharacterSchema] as string
+                const max_xp = character[`${skill}_max_xp` as keyof CharacterSchema] as string
 
-              return (
-                <TableRow>
-                  <TableCell className="px-0">{skill}</TableCell>
-                  <TableCell className="px-0 pl-1">
-                    Level: {level};<br className="sm:hidden" /> Exp: {xp}/{max_xp}
-                  </TableCell>
-                </TableRow>
-              )
-            })}
+                return (
+                  <TableRow key={skill}>
+                    <TableCell className="px-0 flex items-center gap-2">
+                      <img src={SKILLS_ICONS[skill]} width="20" height="20" />
+                      {skill}
+                    </TableCell>
+                    <TableCell className="px-0 pl-1">
+                      Level: {level};<br className="sm:hidden" /> Exp: {xp}/{max_xp}
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
           </Table>
         </div>
       </CardContent>
