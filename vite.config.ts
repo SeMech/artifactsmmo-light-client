@@ -2,6 +2,8 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+// test
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = mode === 'production' ? loadEnv(mode, process.cwd(), 'FRONT_') : {};
